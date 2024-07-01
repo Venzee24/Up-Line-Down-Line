@@ -2,8 +2,8 @@ package com.cyberz.ar7demon.service;
 
 import com.cyberz.ar7demon.dto.requestDto.CreateEntityRequestDto;
 import com.cyberz.ar7demon.dto.auth.ResponseDto;
-import com.cyberz.ar7demon.dto.requestDto.MasterResponse;
-import com.cyberz.ar7demon.dto.requestDto.SeniorMasterResponse;
+import com.cyberz.ar7demon.dto.responseDto.SeniorMasterResponse;
+import com.cyberz.ar7demon.dto.responseDto.UserResponse;
 import com.cyberz.ar7demon.exception.CustomException;
 import com.cyberz.ar7demon.model.entity.Admin;
 import com.cyberz.ar7demon.model.entity.Role;
@@ -16,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.security.SecurityPermission;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;

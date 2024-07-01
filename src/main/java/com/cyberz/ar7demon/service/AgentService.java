@@ -1,7 +1,7 @@
 package com.cyberz.ar7demon.service;
 
 import com.cyberz.ar7demon.dto.auth.ResponseDto;
-import com.cyberz.ar7demon.dto.requestDto.AgentResponse;
+import com.cyberz.ar7demon.dto.responseDto.AgentResponse;
 import com.cyberz.ar7demon.dto.requestDto.CreateEntityRequestDto;
 import com.cyberz.ar7demon.exception.CustomException;
 import com.cyberz.ar7demon.model.entity.*;
