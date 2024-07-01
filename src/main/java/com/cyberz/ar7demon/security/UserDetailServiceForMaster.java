@@ -21,7 +21,7 @@ public class UserDetailServiceForMaster implements UserDetailsService {
         return masterRepository.findByEmail(username)
                 .map(customer ->
                         User.withUsername(username)
-                                .authorities(Role.SENIOR_MASTER.name())
+                                .authorities(Role.MASTER.name())
                                 .password(customer.getPassword())
                                 .accountExpired(isExpired(customer))
                                 .accountLocked(customer.isLocked())

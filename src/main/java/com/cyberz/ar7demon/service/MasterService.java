@@ -13,6 +13,7 @@ import com.cyberz.ar7demon.repository.AdminRepository;
 import com.cyberz.ar7demon.repository.MasterRepository;
 import com.cyberz.ar7demon.repository.SeniorMasterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -84,5 +85,12 @@ public class MasterService {
 
     public List<Master> findBySeniorMaster(SeniorMaster seniorMaster) {
        return masterRepository.findBySeniorMaster(seniorMaster).orElseThrow(()->new CustomException("Master Not Found By SeniorMaster"));
+    }
+    public List<Master> findByMasterName(String name){
+        return masterRepository.findAll(byMasterName(name));
+    }
+    private Specification<Master> byMasterName(String name){
+        return (root, query, criteriaBuilder) ->
+                criteriaBuilder.like(root.get("name".toLowerCase()),name.toLowerCase().concat("%"));
     }
 }

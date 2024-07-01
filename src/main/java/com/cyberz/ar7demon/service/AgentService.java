@@ -10,6 +10,7 @@ import com.cyberz.ar7demon.repository.AgentRepository;
 import com.cyberz.ar7demon.repository.MasterRepository;
 import com.cyberz.ar7demon.repository.SeniorMasterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -91,5 +92,14 @@ public class AgentService {
     public List<Agent> findByMaster(Master master) {
         return agentRepository.findByMaster(master).orElseThrow(()->
                 new CustomException("Agent Not Found By Master!"));
+    }
+
+    public List<Agent> findByAgentName(String name){
+       return agentRepository.findAll(byAgentName(name));
+    }
+
+    private Specification<Agent> byAgentName(String name){
+        return (root, query, criteriaBuilder) ->
+                criteriaBuilder.like(root.get("name"),name.toLowerCase().concat("%"));
     }
 }

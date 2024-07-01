@@ -11,10 +11,12 @@ import com.cyberz.ar7demon.model.entity.SeniorMaster;
 import com.cyberz.ar7demon.repository.AdminRepository;
 import com.cyberz.ar7demon.repository.SeniorMasterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.SecurityPermission;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -89,6 +91,15 @@ public class SeniorMasterService {
 
         });
         return seniorMasterResponseList;
+    }
+
+    public List<SeniorMaster> findBySeniorMasterName(String name){
+        return seniorMasterRepository.findAll(bySeniorMasterName(name));
+    }
+
+    private Specification<SeniorMaster> bySeniorMasterName(String name){
+        return (root, query, criteriaBuilder) ->
+                criteriaBuilder.like(root.get("name".toLowerCase()),name.toLowerCase().concat("%"));
     }
 
 

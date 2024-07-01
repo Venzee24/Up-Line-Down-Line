@@ -22,7 +22,7 @@ public class UserDetailServiceForAgent implements UserDetailsService {
         return agentRepository.findByEmail(username)
                 .map(customer ->
                         User.withUsername(username)
-                                .authorities(Role.SENIOR_MASTER.name())
+                                .authorities(Role.AGENT.name())
                                 .password(customer.getPassword())
                                 .accountExpired(isExpired(customer))
                                 .accountLocked(customer.isLocked())

@@ -7,6 +7,7 @@ import com.cyberz.ar7demon.exception.CustomException;
 import com.cyberz.ar7demon.model.entity.*;
 import com.cyberz.ar7demon.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -98,5 +99,14 @@ public class UserService {
     public List<User> findByMaster(Master master) {
         return userRepository.findByMaster(master).orElseThrow(()->
                 new CustomException("User Not Found By Master!"));
+    }
+
+    public List<User> findByUserName(String name){
+        return userRepository.findAll(byUserName(name));
+    }
+
+    private Specification<User> byUserName(String name){
+        return (root, query, criteriaBuilder) ->
+                criteriaBuilder.like(root.get("name".toLowerCase()),name.toLowerCase().concat("%"));
     }
 }

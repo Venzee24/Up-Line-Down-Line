@@ -5,21 +5,27 @@ import com.cyberz.ar7demon.dto.requestDto.AgentResponse;
 import com.cyberz.ar7demon.dto.requestDto.CreateEntityRequestDto;
 import com.cyberz.ar7demon.dto.requestDto.MasterResponse;
 import com.cyberz.ar7demon.dto.requestDto.UserResponse;
+import com.cyberz.ar7demon.model.entity.Agent;
+import com.cyberz.ar7demon.model.entity.Master;
 import com.cyberz.ar7demon.model.entity.SeniorMaster;
+import com.cyberz.ar7demon.model.entity.User;
 import com.cyberz.ar7demon.security.JWTService;
 import com.cyberz.ar7demon.service.AgentService;
 import com.cyberz.ar7demon.service.MasterService;
 import com.cyberz.ar7demon.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/seniorMaster")
+@RequestMapping("/api/seniorMaster")
 public class SeniorMasterController {
     @Autowired
     private JWTService jwtService;
@@ -56,6 +62,57 @@ public class SeniorMasterController {
        var result = masterService.mapToMasterResponse(masterList);
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
+    @GetMapping("/agents")
+    public ResponseEntity<List<AgentResponse>> findByAgentName(@RequestParam("name") String name, HttpServletRequest request){
+        SeniorMaster seniorMaster = checkAuthority(request);
+         var agentList = agentService.findByAgentName(name);
+         var agentListOfSeniorMaster = agentService.findBySeniorMaster(seniorMaster);
+         List<Agent> resultList = new LinkedList<>();
+
+         agentList.forEach(e-> {
+             agentListOfSeniorMaster.forEach(a->{
+                 if (e.equals(a)){
+                     resultList.add(e);
+                 }
+             });
+                 });
+         var responseList = agentService.mapToAgentResponse(resultList);
+         return new ResponseEntity<>(responseList,HttpStatus.OK);
+    }
+    @GetMapping("/masters")
+    public ResponseEntity<List<MasterResponse>> findByMasterName(@RequestParam("name") String name,HttpServletRequest request){
+        SeniorMaster seniorMaster = checkAuthority(request);
+        var masterList = masterService.findByMasterName(name);
+        var masterListOfSeniorMaster = masterService.findBySeniorMaster(seniorMaster);
+        List<Master> resultList = new LinkedList<>();
+        masterList.forEach(e->{
+            masterListOfSeniorMaster.forEach(a->{
+                if (e.equals(a)){
+                    resultList.add(e);
+                }
+            });
+                }
+                );
+        var result = masterService.mapToMasterResponse(resultList);
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+    @GetMapping("/users")
+    public ResponseEntity<List<UserResponse>> findByUserName(@RequestParam("name") String name,HttpServletRequest request){
+        SeniorMaster seniorMaster = checkAuthority(request);
+        var userList = userService.findByUserName(name);
+        var userListOfSeniorMaster = userService.findBySeniorMaster(seniorMaster);
+        List<User> resultList = new LinkedList<>();
+        userList.forEach(e->{
+            userListOfSeniorMaster.forEach(a->{
+                if (e.equals(a)){
+                    resultList.add(e);
+                }
+            });
+        });
+        var responseList = userService.mapToUserResponse(resultList);
+        return new ResponseEntity<>(responseList,HttpStatus.OK);
+    }
+
     @GetMapping("/listAgent")
     public ResponseEntity<List<AgentResponse>> agentList(HttpServletRequest request){
         SeniorMaster seniorMaster = checkAuthority(request);
