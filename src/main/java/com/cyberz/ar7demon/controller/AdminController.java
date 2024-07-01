@@ -2,6 +2,10 @@ package com.cyberz.ar7demon.controller;
 
 import com.cyberz.ar7demon.dto.requestDto.*;
 import com.cyberz.ar7demon.dto.auth.ResponseDto;
+import com.cyberz.ar7demon.dto.responseDto.AgentResponse;
+import com.cyberz.ar7demon.dto.responseDto.MasterResponse;
+import com.cyberz.ar7demon.dto.responseDto.SeniorMasterResponse;
+import com.cyberz.ar7demon.dto.responseDto.UserResponse;
 import com.cyberz.ar7demon.model.entity.*;
 import com.cyberz.ar7demon.security.JWTService;
 import com.cyberz.ar7demon.security.UserDetailServiceForAdmin;
@@ -70,7 +74,7 @@ public class AdminController {
      return new ResponseEntity<>(result,HttpStatus.OK);
     }
     @GetMapping("/seniorMasters")
-    public ResponseEntity<List<SeniorMasterResponse>> findBySeniorMasterName(@RequestParam("name") String name,HttpServletRequest request){
+    public ResponseEntity<List<SeniorMasterResponse>> findBySeniorMasterName(@RequestParam("name") String name, HttpServletRequest request){
         Admin admin = checkAuthorize(request);
         var seniorMasterList = seniorMasterService.findBySeniorMasterName(name);
         var seniorMasterListOfAdmin = seniorMasterService.findByAdminId(admin);

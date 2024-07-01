@@ -1,10 +1,10 @@
 package com.cyberz.ar7demon.controller;
 
 import com.cyberz.ar7demon.dto.auth.ResponseDto;
-import com.cyberz.ar7demon.dto.requestDto.AgentResponse;
+import com.cyberz.ar7demon.dto.responseDto.AgentResponse;
 import com.cyberz.ar7demon.dto.requestDto.CreateEntityRequestDto;
-import com.cyberz.ar7demon.dto.requestDto.MasterResponse;
-import com.cyberz.ar7demon.dto.requestDto.UserResponse;
+import com.cyberz.ar7demon.dto.responseDto.MasterResponse;
+import com.cyberz.ar7demon.dto.responseDto.UserResponse;
 import com.cyberz.ar7demon.model.entity.Agent;
 import com.cyberz.ar7demon.model.entity.Master;
 import com.cyberz.ar7demon.model.entity.SeniorMaster;
@@ -15,8 +15,6 @@ import com.cyberz.ar7demon.service.MasterService;
 import com.cyberz.ar7demon.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

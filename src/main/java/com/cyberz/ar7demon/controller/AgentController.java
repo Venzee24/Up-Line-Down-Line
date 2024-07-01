@@ -2,7 +2,7 @@ package com.cyberz.ar7demon.controller;
 
 import com.cyberz.ar7demon.dto.auth.ResponseDto;
 import com.cyberz.ar7demon.dto.requestDto.CreateEntityRequestDto;
-import com.cyberz.ar7demon.dto.requestDto.UserResponse;
+import com.cyberz.ar7demon.dto.responseDto.UserResponse;
 import com.cyberz.ar7demon.model.entity.Agent;
 import com.cyberz.ar7demon.model.entity.User;
 import com.cyberz.ar7demon.security.JWTService;
